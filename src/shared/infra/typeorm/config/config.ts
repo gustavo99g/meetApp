@@ -8,7 +8,7 @@ const config: ConnectionOptions = {
     username: 'postgres',
     password: 'postgres',
     synchronize: true,
-    entities: [],
+    entities: ['./src/shared/infra/typeorm/entities/*.ts'],
 }
 
 export { config }
