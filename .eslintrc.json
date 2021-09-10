@@ -21,6 +21,8 @@
      "import/no-unresolved":"off",
      "import/extensions":"off",
      "import/prefer-default-export":"off",
-     "camelcase":"off"
+     "camelcase":"off",
+     "no-unused-vars":"off",
+     "no-useless-constructor":"off"
     }
 }
