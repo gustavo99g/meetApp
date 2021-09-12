@@ -1,28 +1,24 @@
-import { getRepository } from 'typeorm'
-import { User } from '../../../../shared/infra/typeorm/entities/User.entity'
 import { createUserDto } from './createUserDto'
 import { AppError } from '../../../../shared/infra/http/error/AppError'
+import { IUserRepo } from '../../repos/UserRepo'
 
 class CreateUserUseCase {
+  constructor(private userRepository: IUserRepo) {}
+
   async execute(dto: createUserDto) {
     const { email, name, password } = dto
-    const userRepository = getRepository(User)
 
-    const alreadyExist = await userRepository.findOne({ email })
+    const alreadyExist = await this.userRepository.findByEmail(email)
 
     if (alreadyExist) {
       throw new AppError('E-mail already registered', 400)
     }
 
-    const user = userRepository.create({
-      name,
+    await this.userRepository.save({
       email,
+      name,
       password,
     })
-
-    await userRepository.save(user)
-
-    return user
   }
 }
 
