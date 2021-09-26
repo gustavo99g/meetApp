@@ -8,7 +8,7 @@ class CreateUserUseCase {
   async execute(dto: createUserDto) {
     const { email, name, password } = dto
 
-    const alreadyExist = await this.userRepository.findByEmail(email)
+    const alreadyExist = await this.userRepository.exists(email)
 
     if (alreadyExist) {
       throw new AppError('E-mail already registered', 400)

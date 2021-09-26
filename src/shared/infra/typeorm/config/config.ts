@@ -5,8 +5,8 @@ const config: ConnectionOptions = {
   host: 'localhost',
   database: 'meetapp',
   port: 5432,
-  username: 'postgres',
-  password: 'postgres',
+  username: 'docker',
+  password: 'docker',
   synchronize: true,
   entities: ['./src/shared/infra/typeorm/entities/*.ts'],
 }

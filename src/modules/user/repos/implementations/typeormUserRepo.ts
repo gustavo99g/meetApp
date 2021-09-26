@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm'
+import { getConnection, getRepository, Repository } from 'typeorm'
 import { User } from '../../../../shared/infra/typeorm/entities/User.entity'
 import { UserDTO } from '../../dtos/userDTO'
 import { IUserRepo } from '../UserRepo'
@@ -19,8 +19,8 @@ class UserRepository implements IUserRepo {
     return user
   }
 
-  async exists(id: string): Promise<boolean> {
-    const user = await this.repository.findOne(id)
+  async exists(email: string): Promise<boolean> {
+    const user = await this.repository.findOne({ email })
 
     return !!user
   }

@@ -6,11 +6,11 @@ import { config } from '../typeorm/config/config'
 import { Router } from './api/routes'
 import { AppError } from './error/AppError'
 
-createConnection(config)
-
 const app = express()
 app.use(express.json())
 
+createConnection(config)
+app.use(Router)
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
@@ -22,6 +22,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     message: `Internal server error - ${err.message}`,
   })
 })
-app.use(Router)
-
 app.listen(3333, () => console.log('Server Running'))
