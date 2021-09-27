@@ -23,6 +23,7 @@
      "import/prefer-default-export":"off",
      "camelcase":"off",
      "no-unused-vars":"off",
-     "no-useless-constructor":"off"
+     "no-useless-constructor":"off",
+     "class-methods-use-this":"off"
     }
 }
