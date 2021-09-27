@@ -10,11 +10,11 @@ class UserRepository implements IUserRepo {
     this.repository = getRepository(User)
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User | null> {
     const user = await this.repository.findOne({ email })
 
     if (!user) {
-      throw new Error('User not found')
+      return null
     }
     return user
   }

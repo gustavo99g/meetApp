@@ -1,4 +1,4 @@
-import { createUserDto } from './createUserDto'
+import { createUserDto } from './createUserDTO'
 import { AppError } from '../../../../shared/infra/http/error/AppError'
 import { IUserRepo } from '../../repos/UserRepo'
 import { IHashService } from '../../services/hashService'
