@@ -1,13 +1,11 @@
 import { UserRepository } from '../../repos/implementations/typeormUserRepo'
-import { BcryptHashService } from '../../services/bcrypt/bcryptHashService'
-import { JWTAuthService } from '../../services/jwtAuthService/jwtAuthService'
+import { hashService } from '../../services/bcrypt'
+import { authService } from '../../services/jwtAuthService'
 import { LoginController } from './loginController'
 import { LoginUseCase } from './loginUseCase'
 
 const loginController = () => {
   const userRepository = new UserRepository()
-  const hashService = new BcryptHashService()
-  const authService = new JWTAuthService()
 
   const loginUseCase = new LoginUseCase(
     userRepository,

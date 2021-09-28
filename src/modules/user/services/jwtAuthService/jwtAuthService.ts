@@ -3,12 +3,17 @@ import { IAuthService } from '../authService'
 import { authConfig } from '../../../config/auth'
 
 class JWTAuthService implements IAuthService {
-  signJWT(id: string): string {
+  public signJWT(id: string): string {
     return jwt.sign(id, authConfig.secret)
   }
 
-  decodeJWT(token: string): Promise<string> {
-    throw new Error('Method not implemented.')
+  public decodeJWT(token: string): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, authConfig.secret, (err, decoded) => {
+        if (err) return resolve(null)
+        return resolve(decoded)
+      })
+    })
   }
 }
 
