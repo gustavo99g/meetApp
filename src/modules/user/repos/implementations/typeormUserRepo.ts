@@ -1,13 +1,22 @@
-import { getConnection, getRepository, Repository } from 'typeorm'
+import { getRepository, Repository } from 'typeorm'
 import { User } from '../../../../shared/infra/typeorm/entities/User.entity'
-import { UserDTO } from '../../dtos/userDTO'
-import { IUserRepo } from '../UserRepo'
+import { IUser, IUserRepo } from '../UserRepo'
 
 class UserRepository implements IUserRepo {
   private repository: Repository<User>
 
   constructor() {
     this.repository = getRepository(User)
+  }
+
+  async findById(id: string) {
+    const user = await this.repository.findOne(id)
+
+    if (!user) {
+      return null
+    }
+
+    return user
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -25,7 +34,7 @@ class UserRepository implements IUserRepo {
     return !!user
   }
 
-  async save(user: UserDTO): Promise<void> {
+  async save(user: IUser): Promise<void> {
     const typeormUser = this.repository.create(user)
 
     await this.repository.save(typeormUser)

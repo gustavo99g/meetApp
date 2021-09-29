@@ -6,7 +6,7 @@ class Middleware {
 
   public ensureAuthenticated() {
     return async (req: Request, res: Response, next: NextFunction) => {
-      const token = req.headers.authorization
+      const [, token] = req.headers.authorization?.split(' ')
 
       if (token) {
         const decoded = await this.authService.decodeJWT(token)
