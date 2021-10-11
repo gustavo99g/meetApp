@@ -18,7 +18,10 @@ userRouter.post(
   '/profile',
   middleware.ensureAuthenticated(),
   upload.single('avatar'),
-  (req, res) => console.log(req.file)
+  (req, res) => {
+    console.log(req.file)
+    return res.send()
+  }
 )
 
 export { userRouter }

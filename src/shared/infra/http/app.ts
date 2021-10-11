@@ -14,7 +14,7 @@ createConnection(config)
 app.use(Router)
 app.use(
   '/uploads',
-  express.static(path.resolve(__dirname, '..', '..', 'uploads'))
+  express.static(path.resolve(__dirname, '..', '..', '..', '..', 'uploads'))
 )
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {

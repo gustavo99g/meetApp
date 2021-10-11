@@ -7,17 +7,25 @@ class Middleware {
 
   public ensureAuthenticated() {
     return async (req: Request, res: Response, next: NextFunction) => {
-      const [, token] = req.headers.authorization?.split(' ') as string[]
+      const { authorization } = req.headers
 
-      if (token) {
-        const decoded = await this.authService.decodeJWT(token)
-        if (!decoded) {
-          return res.status(403).json({ message: 'Token signature failed' })
-        }
-        req.userId = decoded
-        return next()
+      if (!authorization) {
+        return res
+          .status(403)
+          .json({ message: 'Please provide authorization header' })
       }
-      return res.status(403).json({ message: 'Token not provided' })
+
+      const [, token] = authorization?.split(' ')
+
+      if (!token) {
+        return res.status(403).json({ message: 'Token not provided' })
+      }
+      const decoded = await this.authService.decodeJWT(token)
+      if (!decoded) {
+        return res.status(403).json({ message: 'Token signature failed' })
+      }
+      req.userId = decoded
+      return next()
     }
   }
 }
