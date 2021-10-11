@@ -2,6 +2,7 @@ import 'reflect-metadata'
 import express, { NextFunction, Request, Response } from 'express'
 import 'express-async-errors'
 import { createConnection } from 'typeorm'
+import path from 'path'
 import { config } from '../typeorm/config/config'
 import { Router } from './api/routes'
 import { AppError } from './error/AppError'
@@ -11,6 +12,10 @@ app.use(express.json())
 
 createConnection(config)
 app.use(Router)
+app.use(
+  '/uploads',
+  express.static(path.resolve(__dirname, '..', '..', 'uploads'))
+)
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({

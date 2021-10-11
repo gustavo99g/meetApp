@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { IAuthService } from '../authService'
-import { authConfig } from '../../../config/auth'
+import { authConfig } from '../../../../config/auth'
 
 class JWTAuthService implements IAuthService {
   public signJWT(id: string): string {
